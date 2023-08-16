@@ -6,7 +6,9 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
 	[SerializeField] int maxHP = 5;
+	public int MaxHP { get { return maxHP; } }
 	[SerializeField] int currentHP = 0;
+	public int CurrentHP { get { return currentHP; } }
 	[SerializeField] int difficultDamp = 1;
 
 	Enemy enemy;

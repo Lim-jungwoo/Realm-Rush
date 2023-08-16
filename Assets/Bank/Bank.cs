@@ -8,6 +8,8 @@ public class Bank : MonoBehaviour
 
 	[SerializeField] int startBalance = 300;
 
+	[SerializeField] End end;
+
 	int currentBalance;
 	public int CurrentBalance
 	{
@@ -27,19 +29,13 @@ public class Bank : MonoBehaviour
 		UpdateDisplay();
 		if (currentBalance < 0)
 		{
-			ReloadScene();
+			end.OnEndPanel();
 		}
 	}
 	public void Deposit(int amount)
 	{
 		currentBalance += Mathf.Abs(amount);
 		UpdateDisplay();
-	}
-
-	void ReloadScene()
-	{
-		int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-		SceneManager.LoadScene(currentSceneIndex);
 	}
 
 	void UpdateDisplay()

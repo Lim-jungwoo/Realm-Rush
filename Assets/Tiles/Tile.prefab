@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2801767304696853592}
   - component: {fileID: 1024234494860741906}
   - component: {fileID: 4545106164043704710}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GrassMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 6716567327751665510}
   - component: {fileID: 6716567327751665511}
   - component: {fileID: 6716567327751665509}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Grid Txt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -270,6 +270,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   blockedColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  pathColor: {r: 1, g: 0.5, b: 0, a: 1}
+  exploredColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!1 &6716567329304527178
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,7 +283,7 @@ GameObject:
   - component: {fileID: 6716567329304527177}
   - component: {fileID: 8761046161650050080}
   - component: {fileID: 8538190727481551563}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tile
   m_TagString: Untagged
   m_Icon: {fileID: 0}

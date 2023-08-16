@@ -5,56 +5,63 @@ using UnityEngine;
 [RequireComponent(typeof(Enemy))]
 public class EnemyMover : MonoBehaviour
 {
-	[SerializeField] List<WayPoint> path = new List<WayPoint>();
 	[SerializeField][Range(0, 5)] float rotateSpeed;
 	[SerializeField][Range(0, 5)] float moveSpeed;
 
+	List<Node> path = new List<Node>();
 	Enemy enemy;
+	GridManager gridManager;
+	FindPath findPath;
 
 	private void Awake()
 	{
 		enemy = GetComponent<Enemy>();
+		gridManager = FindObjectOfType<GridManager>();
+		findPath = FindObjectOfType<FindPath>();
 	}
 
 	private void OnEnable()
 	{
-		//* 경로 찾기
-		FindPath();
-
 		//* 경로의 처음에서 시작
-		RestartPos();
+		ReturnToStart();
 
-
-		StartCoroutine("FollowPath");
+		//* 경로 찾기
+		RecalculatePath(true);
 	}
 
-	private void RestartPos()
+	private void ReturnToStart()
 	{
-		if (path.Count > 0)
-			transform.position = path[0].transform.position;
+		transform.position = gridManager.GetPositionFromCoordinates(findPath.StartCoordinates);
 	}
 
-	void FindPath()
+	void RecalculatePath(bool resetPath)
 	{
-		path.Clear();
+		Vector2Int coordinates = new Vector2Int();
 
-		GameObject paths = GameObject.FindGameObjectWithTag("Path");
-
-		foreach (Transform child in paths.transform)
+		//* resetPath가 true이면 처음 시작 노드부터 경로를 설정한다.
+		if (resetPath)
 		{
-			WayPoint wayPoint = child.GetComponent<WayPoint>();
-			if (object.ReferenceEquals(wayPoint, null) == false)
-				path.Add(wayPoint);
+			coordinates = findPath.StartCoordinates;
+		}
+		//* resetPath가 false이면 현재 위치에서 경로를 재설정한다.
+		else
+		{
+			coordinates = gridManager.GetCoordinatesFromPosition(transform.position);
 		}
 
+		//* 경로를 재계산하고, 코루틴을 실행한다.
+		StopAllCoroutines();
+		path.Clear();
+		path = findPath.GetNewPath(coordinates);
+		StartCoroutine("FollowPath");
 	}
 
 	IEnumerator FollowPath()
 	{
-		foreach (WayPoint wayPoint in path)
+		for (int i = 1; i < path.Count; i++)
 		{
 			Vector3 startPos = transform.position;
-			Vector3 endPos = wayPoint.transform.position;
+			Vector3 endPos = gridManager.GetPositionFromCoordinates(path[i].coordinates);
 			float travelPercent = 0f;
 			float rotatePercent = 0f;
 

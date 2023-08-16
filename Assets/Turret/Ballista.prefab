@@ -283,7 +283,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 2
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -5042,4 +5042,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c78b310dc6e422ab4d581fb6fc878f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerCost: 25
+  towerCost: 75
